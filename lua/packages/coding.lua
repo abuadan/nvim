@@ -247,3 +247,19 @@ use {
     require("config.coding.attempt").setup()
   end,
 }
+
+-- Markdown
+use {
+  "iamcco/markdown-preview.nvim",
+  run = function()
+    vim.fn["mkdp#util#install"]()
+  end,
+}
+
+-- Colors
+use {
+  "norcalli/nvim-colorizer.lua",
+  config = function()
+    require("colorizer").setup()
+  end,
+}
