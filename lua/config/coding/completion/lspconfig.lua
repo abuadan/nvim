@@ -111,6 +111,7 @@ function M.setup()
     "sqls",
     "taplo",
     "clangd",
+    "bashls",
   }
 
   mason_lspconfig.setup {
