@@ -1,5 +1,5 @@
 # files
-/plugin/
+/plugin/packer_compiled.lua
 
 # Tools
 /venv/

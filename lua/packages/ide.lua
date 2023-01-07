@@ -263,19 +263,11 @@ use {
   "nvim-neorg/neorg",
   config = function()
     ---@diagnostic disable-next-line: redundant-parameter
-    require("config.coding.neorg").setup {
-      load = {
-        ["core.defaults"] = {},
-        ["core.presenter"] = {
-          config = {
-            zen_mode = "truezen",
-          },
-        },
-      },
-    }
+    require("config.ide.neorg").setup()
   end,
   ft = "norg",
   opt = true,
+  after = { "nvim-treesitter", "nvim-telescope/telescope.nvim" },
   requires = { "nvim-lua/plenary.nvim", "Pocco81/TrueZen.nvim" },
   disable = false,
 }
