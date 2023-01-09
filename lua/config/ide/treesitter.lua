@@ -20,6 +20,7 @@ function M.setup()
         "lua",
         "bash",
         "markdown",
+        "norg",
         "markdown_inline",
       },
       -- ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -106,12 +107,12 @@ function M.setup()
       matchup = { enable = true },
     },
   }
-  parser_configs.norg = {
-    install_info = {
-      url = "https://github.com/nvim-neorg/tree-sitter-norg",
-      files = { "src/parser.c", "src/scanner.cc" },
-      branch = "main",
-    },
-  }
+  -- parser_configs.norg = {
+  --   install_info = {
+  --     url = "https://github.com/nvim-neorg/tree-sitter-norg",
+  --     files = { "src/parser.c", "src/scanner.cc" },
+  --     branch = "main",
+  --   },
+  -- }
 end
 return M

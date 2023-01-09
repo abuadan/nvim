@@ -261,13 +261,13 @@ use {
 -- Org
 use {
   "nvim-neorg/neorg",
+  after = { "nvim-treesitter" },
+  run = ":Neorg sync-parsers",
   config = function()
-    ---@diagnostic disable-next-line: redundant-parameter
     require("config.ide.neorg").setup()
   end,
-  ft = "norg",
-  opt = true,
-  after = { "nvim-treesitter", "nvim-telescope/telescope.nvim" },
+  -- ft = "norg",
+  -- opt = true,
   requires = { "nvim-lua/plenary.nvim", "Pocco81/TrueZen.nvim" },
   disable = false,
 }

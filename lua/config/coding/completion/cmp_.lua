@@ -48,6 +48,7 @@ function M.setup()
         keyword_length = 5,
         max_item_count = 5,
       },
+      { name = "neorg" },
       -- {
       --   name = "treesitter",
       --   priority = 5,
@@ -132,6 +133,7 @@ function M.setup()
           nvim_lua = "[Lua]",
           path = "[Path]",
           luasnip = "[Snippet]",
+          neorg = "[Neorg]",
         },
         before = function(entry, vim_item)
           -- Get the full snippet (and only keep first line)

@@ -11,9 +11,9 @@ function M.setup()
           engine = "nvim-cmp",
         },
       },
-      ["core.presenter"] = {
-        zen_mode = "truezen",
-      },
+      -- ["core.presenter"] = {
+      --   -- zen_mode = "truezen",
+      -- },
       ["core.norg.dirman"] = {
         config = {
           workspaces = {
