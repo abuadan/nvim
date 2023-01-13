@@ -50,6 +50,7 @@ return {
     FileUnmerged = "",
     FileUnstaged = "",
     FileUntracked = "U",
+    Conflicts = "🚩",
     Diff = "",
     Repo = "",
     Octoface = "",

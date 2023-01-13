@@ -18,7 +18,7 @@ function M.setup()
     dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
     dashboard.button("c", "  Configuration", ":e $MYVIMRC <CR>"),
     dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
-    dashboard.button("t", " NvimTree", ":NvimTreeToggle<CR>"),
+    dashboard.button("t", " NeoTree", "Neotree<CR>"),
     dashboard.button("g", " Telescope Grep", ":Telescope live_grep<CR>"),
     dashboard.button(
       "ps",

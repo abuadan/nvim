@@ -8,10 +8,22 @@ keymap("n", "<Leader>b", "<CMD>lua require'config.navigation.telescope'.git_bran
 keymap("n", "<Leader>S", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
 
 -- NvimTree
-keymap("n", "<Leader>nn", "<CMD>NvimTreeOpen<CR>", opts)
-keymap("n", "<Leader>nf", "<CMD>NvimTreeFindFile<CR>", opts)
-keymap("n", "<Leader>nt", "<CMD>NvimTreeToggle<CR>", opts)
+-- keymap("n", "<Leader>nn", "<CMD>NvimTreeOpen<CR>", opts)
+-- keymap("n", "<Leader>nf", "<CMD>NvimTreeFindFile<CR>", opts)
+-- keymap("n", "<Leader>nt", "<CMD>NvimTreeToggle<CR>", opts)
 -- keymap("n", "<Leader>n", "<CMD>NvimTreeFocus<CR>", opts)
+
+-- Neotree
+keymap("n", "<Leader>nn", "<CMD>Neotree<CR>", opts)
+keymap("n", "<Leader>nf", "<CMD>Neotree show current<CR>", opts)
+-- keymap("n", "<Leader>nt", "<CMD>NvimTreeToggle<CR>", opts)
+
+-- Window Picker
+vim.keymap.set("n", "<leader>w", function()
+  local picker = require "window-picker"
+  local picked_window_id = picker.pick_window() or vim.api.nvim_get_current_win()
+  vim.api.nvim_set_current_win(picked_window_id)
+end, { desc = "Pick a window" })
 
 -- Refactor
 -- Remaps for the refactoring operations currently offered by the plugin

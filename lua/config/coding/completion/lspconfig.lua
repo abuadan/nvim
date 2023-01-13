@@ -109,7 +109,6 @@ function M.setup()
     "gopls",
     "jsonls",
     "sqls",
-    "taplo",
     "clangd",
     "bashls",
   }

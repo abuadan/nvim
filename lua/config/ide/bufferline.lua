@@ -13,7 +13,10 @@ function M.setup()
       },
       left_trunc_marker = icons.ui.ArrowCircleLeft,
       modified_icon = icons.ui.Circle,
-      offsets = { { filetype = "NvimTree", text = "EXPLORER", text_align = "center" } },
+      offsets = {
+        { filetype = "Neotree", text = "EXPLORER", text_align = "center" },
+        { filetype = "NvimTree", text = "EXPLORER", text_align = "center" },
+      },
       right_mouse_command = "Bdelete! %d",
       right_trunc_marker = icons.ui.ArrowCircleRight,
       show_close_icon = false,

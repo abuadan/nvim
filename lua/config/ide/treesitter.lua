@@ -13,7 +13,6 @@ function M.setup()
         "go",
         "cpp",
         "lua",
-        "vim",
         "javascript",
         "vim",
         "regex",
@@ -22,6 +21,7 @@ function M.setup()
         "markdown",
         "norg",
         "markdown_inline",
+        "terraform",
       },
       -- ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
       highlight = {

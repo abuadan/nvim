@@ -8,6 +8,7 @@ local function empty_winbar_var()
     ["toggleterm"] = true,
     ["prompt"] = true,
     ["NvimTree"] = true,
+    ["neo-tree"] = true,
     ["help"] = true,
   } -- Ignore float windows and exclude filetype
   if vim.api.nvim_win_get_config(0).zindex or exclude[vim.bo.filetype] then
@@ -33,6 +34,7 @@ function M.setup()
           "packer",
           "neogitstatus",
           "NvimTree",
+          "neo-tree",
           "Trouble",
           "alpha",
           "lir",
