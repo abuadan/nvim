@@ -33,10 +33,16 @@ local v_opts = {
 local function normal_keymap()
   local keymap_f = nil -- File search
   local keymap_p = nil -- Project search
+  local keymap_tree = nil -- Explorer
 
+  keymap_tree = {
+    name = "Explorer",
+    n = { "<cmd>Neotree reveal<cr>", "Explorer" },
+    f = { "<cmd>Neotree toggle<cr>", "Toggle Explorer" },
+  }
   keymap_f = {
     name = "Find",
-    f = { "<cmd>lua require('utils.finder').find_files()<cr>", "Files" },
+    f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Files" },
     p = { "<CMD>lua require'config.navigation.telescope'.project_files()<CR>", "Search Project" },
     g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Live Grep" },
     b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Buffers" },
@@ -46,7 +52,8 @@ local function normal_keymap()
     c = { "<cmd>lua require('telescope.builtin').commands()<cr>", "Commands" },
     r = { "<cmd>lua require'telescope'.extensions.file_browser.file_browser()<cr>", "File Browser" },
     w = { "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", "Current Buffer" },
-    e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+    -- e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+    e = { "<cmd>Neotree toggle<cr>", "Explorer" },
   }
 
   keymap_p = {
@@ -109,6 +116,7 @@ local function normal_keymap()
 
     f = keymap_f,
     p = keymap_p,
+    n = keymap_tree,
 
     j = {
       name = "Jump",
@@ -161,22 +169,22 @@ local function normal_keymap()
       },
     },
 
-    -- r = {
-    --   name = "Refactor",
-    --   i = { [[<cmd>lua require('refactoring').refactor('Inline Variable')<cr>]], "Inline Variable" },
-    --   b = { [[<cmd>lua require('refactoring').refactor('Exract Block')<cr>]], "Extract Block" },
-    --   B = { [[<cmd>lua require('refactoring').refactor('Exract Block To File')<cr>]], "Extract Block to File" },
-    --   P = {
-    --     [[<cmd>lua require('refactoring').debug.printf({below = false})<cr>]],
-    --     "Debug Print",
-    --   },
-    --   p = {
-    --     [[<cmd>lua require('refactoring').debug.print_var({normal = true})<cr>]],
-    --     "Debug Print Variable",
-    --   },
-    --   c = { [[<cmd>lua require('refactoring').debug.cleanup({})<cr>]], "Debug Cleanup" },
-    -- },
-    --
+    r = {
+      name = "Refactor",
+      i = { [[<cmd>lua require('refactoring').refactor('Inline Variable')<cr>]], "Inline Variable" },
+      b = { [[<cmd>lua require('refactoring').refactor('Exract Block')<cr>]], "Extract Block" },
+      B = { [[<cmd>lua require('refactoring').refactor('Exract Block To File')<cr>]], "Extract Block to File" },
+      P = {
+        [[<cmd>lua require('refactoring').debug.printf({below = false})<cr>]],
+        "Debug Print",
+      },
+      p = {
+        [[<cmd>lua require('refactoring').debug.print_var({normal = true})<cr>]],
+        "Debug Print Variable",
+      },
+      c = { [[<cmd>lua require('refactoring').debug.cleanup({})<cr>]], "Debug Cleanup" },
+    },
+
     x = {
       name = "External",
       g = { "<cmd> lua require('config.ide.toggleterm').lazygit()<CR>", "Lazy Git" },
@@ -233,18 +241,18 @@ local function visual_keymap()
     --   },
     -- },
     --
-    -- r = {
-    --   name = "Refactor",
-    --   f = { [[<cmd>lua require('refactoring').refactor('Extract Function')<cr>]], "Extract Function" },
-    --   F = {
-    --     [[ <cmd>lua require('refactoring').refactor('Extract Function to File')<cr>]],
-    --     "Extract Function to File",
-    --   },
-    --   v = { [[<cmd>lua require('refactoring').refactor('Extract Variable')<cr>]], "Extract Variable" },
-    --   i = { [[<cmd>lua require('refactoring').refactor('Inline Variable')<cr>]], "Inline Variable" },
-    --   r = { [[<cmd>lua require('telescope').extensions.refactoring.refactors()<cr>]], "Refactor" },
-    --   d = { [[<cmd>lua require('refactoring').debug.print_var({})<cr>]], "Debug Print Var" },
-    -- },
+    r = {
+      name = "Refactor",
+      f = { [[<cmd>lua require('refactoring').refactor('Extract Function')<cr>]], "Extract Function" },
+      F = {
+        [[ <cmd>lua require('refactoring').refactor('Extract Function to File')<cr>]],
+        "Extract Function to File",
+      },
+      v = { [[<cmd>lua require('refactoring').refactor('Extract Variable')<cr>]], "Extract Variable" },
+      i = { [[<cmd>lua require('refactoring').refactor('Inline Variable')<cr>]], "Inline Variable" },
+      r = { [[<cmd>lua require('telescope').extensions.refactoring.refactors()<cr>]], "Refactor" },
+      d = { [[<cmd>lua require('refactoring').debug.print_var({})<cr>]], "Debug Print Var" },
+    },
   }
 
   whichkey.register(keymap, v_opts)

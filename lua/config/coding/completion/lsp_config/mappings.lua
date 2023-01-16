@@ -47,7 +47,7 @@ function M.mappings(client, bufnr)
     })
   end
 
-  vim.keymap.set("n", "<leader>o", "<cmd>LSoutlineToggle<CR>", bufopts)
+  vim.keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", bufopts)
   -- Telescope lsp mappings
   vim.keymap.set("n", "<Leader>fr", "<CMD>Telescope lsp_definitions<CR>", bufopts)
   vim.keymap.set("n", "<Leader>fo", "<CMD>Telescope lsp_references<CR>", bufopts)

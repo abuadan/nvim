@@ -158,7 +158,6 @@ use {
   end,
   requires = {
     "nvim-tree/nvim-web-devicons",
-    "glepnir/lspsaga.nvim",
   },
 }
 

@@ -14,8 +14,8 @@ keymap("n", "<Leader>S", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
 -- keymap("n", "<Leader>n", "<CMD>NvimTreeFocus<CR>", opts)
 
 -- Neotree
-keymap("n", "<Leader>nn", "<CMD>Neotree<CR>", opts)
-keymap("n", "<Leader>nf", "<CMD>Neotree show current<CR>", opts)
+-- keymap("n", "<Leader>nn", "<CMD>Neotree reveal<CR>", opts)
+-- keymap("n", "<Leader>nf", "<CMD>Neotree toggle<CR>", opts)
 -- keymap("n", "<Leader>nt", "<CMD>NvimTreeToggle<CR>", opts)
 
 -- Window Picker

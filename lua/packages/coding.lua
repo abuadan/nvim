@@ -110,9 +110,9 @@ use {
 }
 use {
   "glepnir/lspsaga.nvim",
-  cmd = { "Lspsaga" },
+  branch = "main",
   config = function()
-    require "config.coding.completion.lspsaga"
+    require("config.coding.completion.lspsaga").setup()
   end,
   opt = false,
   disable = false,

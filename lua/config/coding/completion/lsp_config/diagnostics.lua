@@ -13,6 +13,13 @@ function M.diagnostics()
   vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
   vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 
+  -- Diagnostic jump with filter like Only jump to error
+  vim.keymap.set("n", "[E", function()
+    require("lspsaga.diagnostic").goto_prev { severity = vim.diagnostic.severity.ERROR }
+  end)
+  vim.keymap.set("n", "]E", function()
+    require("lspsaga.diagnostic").goto_next { severity = vim.diagnostic.severity.ERROR }
+  end)
   -- -- Default diagnostics keymaps
   -- vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
   -- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
