@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# This script is responsible for installing all
+# vscode related debuggers
+# currently there are
+# 	vscode node
+# 	vscode chrome
+# 	vscode go
+
+
+set -e
+# check that the debugger folder is present
+# in XDG_DATA_HOME
+
+if [ ! -e "$XDG_DATA_HOME/debuggers" ]; then
+	echo "debugger folder not present"
+	echo "creating debugger folder"
+	mkdir -p "$XDG_DATA_HOME/debuggers"
+	echo "created directory $XDG_DATA_HOME/debuggers/"
+fi
+
+if [ ! -e "$XDG_DATA_HOME/debuggers/vscode-node-debug2/" ]; then
+
+	echo "vscode node debug repo not present installing repo"
+	git clone https://github.com/microsoft/vscode-node-debug2.git "$XDG_DATA_HOME/debuggers/vscode-node-debug2"
+fi
+
+
+cd "$XDG_DATA_HOME/debuggers/vscode-node-debug2/" || exit
+npm install
+npm install
+NODE_OPTIONS=--no-experimental-fetch npm run build
+
+if [ ! -e "$XDG_DATA_HOME/debuggers/vscode-chrome-debug" ]; then
+	ehco "vscode chrome debugger repo not present, cloning."
+	git clone https://github.com/Microsoft/vscode-chrome-debug "$XDG_DATA_HOME/debuggers/vscode-chrome-debug"
+fi
+
+cd "$XDG_DATA_HOME/debuggers/vscode-chrome-debug" || exit
+npm install
+npm run build
+
+
+if [ ! -e "$XDG_DATA_HOME/debuggers/vscode-go" ]; then
+	echo "Go vscode debugger not present, cloning repo"
+	git clone https://github.com/golang/vscode-go "$XDG_DATA_HOME/debuggers/vscode-go"
+fi
+
+cd "$XDG_DATA_HOME/debuggers/vscode-go" || exit
+npm install
+npm run compile

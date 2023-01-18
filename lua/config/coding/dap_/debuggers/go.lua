@@ -5,7 +5,7 @@ local adapters = {
   go = {
     type = "executable",
     command = "node",
-    args = { os.getenv "XDG_DATA_HOME" .. "/debuggers/golang/vscode-go/dist/debugAdapter.js" },
+    args = { os.getenv "XDG_DATA_HOME" .. "/debuggers/vscode-go/dist/debugAdapter.js" },
   },
   delve = {
     type = "server",

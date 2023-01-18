@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if test ! "$(command -v go)"; then
+	ehco "go not installed, installing go"
+	brew install go
+	ehco "go installed"
+fi
+
+echo "downloading delve"
+go install github.com/go-delve/delve/cmd/dlv@latest

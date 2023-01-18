@@ -4,46 +4,22 @@ set -e
 # Script is responsible for setting up
 # python environment for neovim and debuggy
 
-os="$(uname)"
+# check if pyenv is installed
+if test !  "$(command -v pyenv)"; then
+	echo "pyenv not installed "
+	ehco "life would be much easier if pyenv and pyenv-virtualenv are installed"
+	exit 1
+fi
 
-install_pyenv() {
-	ehco "installing pyenv for your platform"
-	if [ "$os" == "Darwain" ];  then
-		echo "installing on mac osx via homebrew"
-		if test ! [[ "$(command -v brew)" ]]; then
-			echo "brew is not installed please install brew"
-			exit 1
-		fi
-		brew install pyenv pyenv-virtualenv
+# chekc if neovim virtual env is created
+if [ -d "$(pyenv prefix)/neovim)" ] ; then
+	echo "neovim virtual env does not exists"
+	echo "creating virtual env"
+	pyenv virtualenv neovim 3.11
+fi
 
-		echo "pyenv and pyenv-virtualenv installed"
-		echo "please update your shell to include"
-		echo 'eval "$(pyenv init - && pyenv virtualenv-init -)" '
-		echo 'update your path to include pyenv bin like'
-		eco 'export PATH="$PYENV_ROOT/bin:$PATH"'
-	fi
-}
+echo "Install neovim and debuggy packages"
+pyenv activate neovim
+pip install neovim
+pip install debuggy
 
-
-pyenv() {
-	# check if pyenv is installed
-	if test !  "$(command -v pyenv)"; then
-		echo "pyenv not installed "
-		ehco "life would be much easier if pyenv and pyenv-virtualenv are installed"
-		install_pyenv
-	fi
-
-	# chekc if neovim virtual env is created
-	if [ -d "$(pyenv prefix)/neovim)" ] ; then 
-		echo "neovim virtual env does not exists"
-		echo "creating virtual env"
-		pyenv virtualenv neovim 3.11
-
-		echo "Install neovim and debuggy packages"
-		pyenv activate neovim
-		pip install neovim
-		pip install debuggy
-	fi
-}
-
-pyenv

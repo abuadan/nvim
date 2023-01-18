@@ -10,6 +10,7 @@ local nvim_dap_virtual_text = require "nvim-dap-virtual-text"
 local dap_python = require "config.coding.dap_.debuggers.python"
 local node_dap = require "config.coding.dap_.debuggers.node"
 local go_dap = require "config.coding.dap_.debuggers.go"
+local typescript_dap = require "config.coding.dap_.debuggers.typescript"
 local rust_dap = require "config.coding.dap_.debuggers.rust"
 
 local highlight_groups = function()
@@ -43,6 +44,7 @@ local configurations = function()
   dap_python.setup()
   node_dap.setup()
   go_dap.setup()
+  typescript_dap.setup()
 end
 
 function M.setup()
