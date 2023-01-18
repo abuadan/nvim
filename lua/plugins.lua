@@ -21,6 +21,7 @@ return require("packer").startup {
     require "packages.ide"
     require "packages.navigation"
     require "packages.coding"
+    require "packages.miscellaneous"
     -- My plugins here
     -- use 'foo1/bar1.nvim'
     -- use 'foo2/bar2.nvim'

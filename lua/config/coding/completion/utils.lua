@@ -72,10 +72,11 @@ function M.get_all_supported_filetypes()
 end
 
 function M.setup_document_highlight(client, bufnr)
-  if builtin.illuminate.active then
+  if packer_plugins["illuminate.nvim"] and packer_plugins["illuminate.nvim"].loaded then
     Log:debug "skipping setup for document_highlight, illuminate already active"
     return
   end
+
   local status_ok, highlight_supported = pcall(function()
     return client.supports_method "textDocument/documentHighlight"
   end)

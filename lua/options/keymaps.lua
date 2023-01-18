@@ -1,6 +1,9 @@
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+-- cellular atomoton
+vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+
 -- Telescope
 keymap("n", "<Leader><Space>", "<CMD>lua require'config.navigation.telescope'.project_files()<CR>", opts)
 keymap("n", "<Leader>g", "<CMD>Telescope live_grep<CR>", opts)
