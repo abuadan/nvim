@@ -5,13 +5,14 @@ local dap = require "dap"
 local dapui = require "dapui"
 local dapui_config = require("config.coding.dap_.ui").config()
 local nvim_dap_virtual_text = require "nvim-dap-virtual-text"
+local keymaps = require "config.coding.dap_.keymaps"
 
 -- Debuggers
 local dap_python = require "config.coding.dap_.debuggers.python"
 local node_dap = require "config.coding.dap_.debuggers.node"
 local go_dap = require "config.coding.dap_.debuggers.go"
 local typescript_dap = require "config.coding.dap_.debuggers.typescript"
-local rust_dap = require "config.coding.dap_.debuggers.rust"
+-- local rust_dap = require "config.coding.dap_.debuggers.rust"
 
 local highlight_groups = function()
   vim.api.nvim_set_hl(0, "DapBreakpoint", { default = true, bg = "#31353f" })
@@ -50,6 +51,7 @@ end
 function M.setup()
   configurations()
   dap_extensions()
+  keymaps.setup()
   highlight_groups()
 end
 return M

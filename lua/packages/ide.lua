@@ -317,15 +317,21 @@ use {
 }
 
 -- Faster Loading
+-- There is an issue loading sh and ts files see
+-- https://github.com/nathom/filetype.nvim/issues/91
 use {
   "nathom/filetype.nvim",
   config = function()
     require("filetype").setup {
       override = {
+        extensions = {
+          sh = "sh",
+        },
         complex = {
           ["*Dockerfile*"] = "Dockerfile",
         },
       },
     }
   end,
+  disable = true,
 }
