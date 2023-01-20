@@ -58,7 +58,6 @@ use {
   "neovim/nvim-lspconfig",
   config = function()
     require("config.coding.completion.lspconfig").setup()
-    -- require("config.coding.debugging.dap").setup()
   end,
   after = "nvim-treesitter",
   requires = {
@@ -110,6 +109,15 @@ use {
   end,
   opt = false,
   disable = false,
+}
+
+use {
+  "simrat39/rust-tools.nvim",
+  requires = "neovim/nvim-lspconfig",
+  after = "nvim-lspconfig",
+  config = function()
+    require("config.coding.completion.rust_tools").setup()
+  end,
 }
 
 use {

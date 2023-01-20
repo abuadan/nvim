@@ -114,7 +114,7 @@ function M.setup()
 
   local servers = {
     "sumneko_lua",
-    "rust_analyzer",
+    -- "rust_analyzer",
     "pyright",
     "tsserver",
     "yamlls",

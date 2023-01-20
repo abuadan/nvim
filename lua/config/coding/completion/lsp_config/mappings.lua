@@ -1,4 +1,6 @@
 local M = {}
+local noice_lsp = require "noice.lsp"
+
 function M.mappings(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -7,11 +9,13 @@ function M.mappings(client, bufnr)
   --   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-  vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, bufopts)
-
+  -- Go to Definition
+  vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>", bufopts)
   vim.keymap.set("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
   vim.keymap.set("n", "gp", "<cmd>Lspsaga peek_definition<CR>", bufopts)
+
+  vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, bufopts)
+  -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
   -- vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 
   -- Declaration and implementation seems to be broken for some servres
@@ -23,8 +27,20 @@ function M.mappings(client, bufnr)
   vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
 
   -- Hover
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+  vim.keymap.set("n", "K", "<cmd>lspsaga hover_doc<cr>", bufopts)
+  -- vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
 
+  vim.keymap.set("n", "<c-f>", function()
+    if not noice_lsp.scroll(4) then
+      return "<c-f>"
+    end
+  end, { silent = true, expr = true })
+
+  vim.keymap.set("n", "<c-b>", function()
+    if not noice_lsp.scroll(-4) then
+      return "<c-b>"
+    end
+  end, { silent = true, expr = true })
   -- Rename
   vim.keymap.set("n", "<leader>rn", function()
     return ":IncRename " .. vim.fn.expand "<cword>"
@@ -33,6 +49,13 @@ function M.mappings(client, bufnr)
   -- Workspaces
   vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+
+  -- Toggle Outline
+  vim.keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", bufopts)
+
+  -- Callhierarchy
+  vim.keymap.set("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>", bufopts)
+  vim.keymap.set("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>", bufopts)
 
   -- Code Action
   if client.supports_method "textDocument/codeAction" then

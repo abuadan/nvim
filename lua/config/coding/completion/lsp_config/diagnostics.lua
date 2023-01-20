@@ -50,7 +50,6 @@ function M.diagnostics()
     update_in_insert = true,
     underline = true,
     severity_sort = true,
-    float = false,
     -- float = {
     --   focusable = true,
     --   style = "minimal",
