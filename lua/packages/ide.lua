@@ -232,7 +232,7 @@ use {
 use {
   "folke/which-key.nvim",
   config = function()
-    require("config.ide.which-key").setup()
+    require("config.ide.which-key_").setup()
   end,
 }
 

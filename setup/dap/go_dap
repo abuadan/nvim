@@ -8,3 +8,6 @@ fi
 
 echo "downloading delve"
 go install github.com/go-delve/delve/cmd/dlv@latest
+
+
+# vim: ft=sh:

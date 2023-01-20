@@ -49,3 +49,5 @@ fi
 cd "$XDG_DATA_HOME/debuggers/vscode-go" || exit
 npm install
 npm run compile
+
+# vim: ft=sh:

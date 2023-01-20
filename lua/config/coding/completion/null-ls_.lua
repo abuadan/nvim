@@ -11,8 +11,19 @@ if not status_ok then
   return
 end
 
-local null_ls_root =
-  require("null-ls.utils").root_pattern(".null-ls-root", "Makefile", ".git", "pyproject.toml", "Pipfile")
+-- diagnostic sources
+local diagnostics = null_ls.builtins.diagnostics
+
+-- formatting sources
+local formatting = null_ls.builtins.formatting
+
+-- hover sources
+local hover = null_ls.builtins.hover
+
+local utils_ = require "null-ls.utils"
+local root_pattern = utils_.root_pattern
+
+local null_ls_root = root_pattern(".null-ls-root", "Makefile", ".git", "pyproject.toml", "Pipfile")
 
 local lsp_formatting = function(bufnr)
   vim.lsp.buf.format {
@@ -41,10 +52,14 @@ end
 
 function M.setup()
   local sources = {
-    null_ls.builtins.diagnostics.shellcheck,
-    null_ls.builtins.completion.luasnip,
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.diagnostics.ruff.with { extra_args = { "--max-line-length=180" } },
+    formatting.shfmt,
+    formatting.stylua,
+    diagnostics.ruff.with { extra_args = { "--max-line-length=180" } },
+    diagnostics.flake8.with {
+      condition = function(utils)
+        return utils.has_file { ".flake8" } or utils.root_has_file { ".flake8" }
+      end,
+    },
   }
   mason.setup()
   null_ls.setup {

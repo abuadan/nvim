@@ -23,3 +23,6 @@ pyenv activate neovim
 pip install neovim
 pip install debuggy
 
+
+
+# vim: ft=sh:

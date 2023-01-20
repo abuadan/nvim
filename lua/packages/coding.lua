@@ -76,7 +76,7 @@ use {
     {
       "jose-elias-alvarez/null-ls.nvim", -- after = "nvim-lspconfig",
       config = function()
-        require("config.coding.completion.null-ls").setup()
+        require("config.coding.completion.null-ls_").setup()
       end,
     },
     {
