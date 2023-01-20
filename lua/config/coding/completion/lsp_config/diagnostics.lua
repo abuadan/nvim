@@ -1,8 +1,15 @@
 local M = {}
 local icons = require "config.ide.icons"
 
-function M.diagnostics()
+local keymaps = function()
   local opts = { noremap = true, silent = true }
+
+  -- -- Default diagnostics keymaps
+  -- vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
+  -- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+  -- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+  -- vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
+
   -- Show line diagnostics
   vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
 
@@ -20,12 +27,9 @@ function M.diagnostics()
   vim.keymap.set("n", "]E", function()
     require("lspsaga.diagnostic").goto_next { severity = vim.diagnostic.severity.ERROR }
   end)
-  -- -- Default diagnostics keymaps
-  -- vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
-  -- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-  -- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-  -- vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
+end
 
+function M.diagnostics()
   local signs = {
 
     { name = "DiagnosticSignError", text = icons.diagnostics.BoldError },
@@ -46,17 +50,19 @@ function M.diagnostics()
     update_in_insert = true,
     underline = true,
     severity_sort = true,
-    float = {
-      focusable = true,
-      style = "minimal",
-      border = "rounded",
-      source = "always",
-      header = "",
-      prefix = "",
-    },
+    float = false,
+    -- float = {
+    --   focusable = true,
+    --   style = "minimal",
+    --   border = "rounded",
+    --   source = "always",
+    --   header = "",
+    --   prefix = "",
+    -- },
   }
 
   vim.diagnostic.config(config)
+  keymaps()
 end
 
 return M
