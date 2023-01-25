@@ -1,10 +1,5 @@
 local M = {}
 local legendary = require "legendary"
-local keymap = vim.api.nvim_set_keymap
-local default_opts = {
-  noremap = true,
-  silent = true,
-}
 
 function M.setup()
   legendary.setup {
@@ -24,7 +19,6 @@ function M.setup()
     },
     include_builtin = true,
   }
-  keymap("n", "<C-p>", "<cmd>lua require('legendary').find()<CR>", default_opts)
 end
 
 return M

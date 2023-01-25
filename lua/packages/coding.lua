@@ -214,48 +214,30 @@ use "ntpeters/vim-better-whitespace"
 
 -- Test
 use {
+  "vim-test/vim-test",
+  event = { "BufReadPre" },
+  config = function()
+    require("config.coding.testing.vim_test").setup()
+  end,
+}
+
+use {
   "nvim-neotest/neotest",
   requires = {
-    {
-      "vim-test/vim-test",
-      event = { "BufReadPre" },
-      config = function()
-        require("config.coding.testing.vim_test").setup()
-      end,
-    },
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
     "antoinemadec/FixCursorHold.nvim",
-    {
-      "nvim-neotest/neotest-vim-test",
-      module = { "neotest-vim-test" },
-    },
-    {
-      "nvim-neotest/neotest-python",
-      module = { "neotest-python" },
-    },
-    {
-      "nvim-neotest/neotest-plenary",
-      module = { "neotest-plenary" },
-    },
-    {
-      "nvim-neotest/neotest-go",
-      module = { "neotest-go" },
-    },
-    {
-      "haydenmeade/neotest-jest",
-      module = { "neotest-jest" },
-    },
-    {
-      "rouge8/neotest-rust",
-      module = { "neotest-rust" },
-    },
+    "nvim-neotest/neotest-vim-test",
+    "nvim-neotest/neotest-python",
+    "nvim-neotest/neotest-plenary",
+    "nvim-neotest/neotest-go",
+    "haydenmeade/neotest-jest",
+    "rouge8/neotest-rust",
+    config = function()
+      require("config.coding.testing.neotest").setup()
+    end,
+    disable = false,
   },
-  module = { "neotest", "neotest.async" },
-  config = function()
-    require("config.coding.testing.neotest").setup()
-  end,
-  disable = false,
 }
 
 use {

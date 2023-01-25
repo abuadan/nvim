@@ -1,13 +1,11 @@
 local M = {}
 local neotest = require "neotest"
+local python = require "config.coding.testing.neotest_adapters.python"
 
 function M.setup()
   neotest.setup {
     adapters = {
-      require "neotest-python" {
-        dap = { justMyCode = false },
-        runner = "pytest",
-      },
+      python.adapter(),
       require "neotest-jest",
       require "neotest-go",
       require "neotest-plenary",

@@ -27,3 +27,7 @@ pytest
 neotest
 keymaps
 noice
+tokenizer
+tokenization
+preprocess_sentence
+lemmatizer

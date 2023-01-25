@@ -5,24 +5,22 @@ set -e
 # python environment for neovim and debuggy
 
 # check if pyenv is installed
-if test !  "$(command -v pyenv)"; then
+if test ! "$(command -v pyenv)"; then
 	echo "pyenv not installed "
 	ehco "life would be much easier if pyenv and pyenv-virtualenv are installed"
 	exit 1
 fi
 
 # chekc if neovim virtual env is created
-if [ -d "$(pyenv prefix)/neovim)" ] ; then
+if [ -d "$(pyenv prefix)/neovim)" ]; then
 	echo "neovim virtual env does not exists"
 	echo "creating virtual env"
 	pyenv virtualenv neovim 3.11
 fi
 
-echo "Install neovim and debuggy packages"
+echo "Install neovim and debugpy packages"
 pyenv activate neovim
 pip install neovim
-pip install debuggy
-
-
+pip install debugpy
 
 # vim: ft=sh:

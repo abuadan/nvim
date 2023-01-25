@@ -12,6 +12,7 @@ local dap_python = require "config.coding.dap_.debuggers.python"
 local node_dap = require "config.coding.dap_.debuggers.node"
 local go_dap = require "config.coding.dap_.debuggers.go"
 local typescript_dap = require "config.coding.dap_.debuggers.typescript"
+local lua_dap = require "config.coding.dap_.debuggers.lua"
 -- local rust_dap = require "config.coding.dap_.debuggers.rust"
 
 local highlight_groups = function()
@@ -46,6 +47,7 @@ local configurations = function()
   node_dap.setup()
   go_dap.setup()
   typescript_dap.setup()
+  lua_dap.setup()
 end
 
 function M.setup()
@@ -53,5 +55,6 @@ function M.setup()
   dap_extensions()
   keymaps.setup()
   highlight_groups()
+  dap.set_log_level "DEBUG"
 end
 return M

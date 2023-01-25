@@ -21,9 +21,9 @@ use {
 
 use {
   "folke/tokyonight.nvim",
+  -- after = cmd "colorscheme tokyonight-storm",
   config = function()
     require("config.themes.tokyonight").setup()
-    cmd "colorscheme tokyonight-storm"
   end,
   disable = true,
 }
@@ -37,9 +37,9 @@ use {
 }
 use {
   "sainnhe/everforest",
+  -- after = cmd "colorscheme everforest",
   config = function()
     g.everforest_better_performance = 1
-    cmd "colorscheme everforest"
   end,
   disable = true,
 }
@@ -49,15 +49,13 @@ use {
 }
 use {
   "sainnhe/gruvbox-material",
-  config = function()
-    cmd "colorscheme gruvbox-material"
-  end,
+  -- after = cmd "colorscheme gruvbox-material",
+  config = function() end,
   disable = true,
 }
 use {
   "arcticicestudio/nord-vim",
-  config = function()
-    cmd "colorscheme nord"
-  end,
+  -- after = cmd "colorscheme nord",
+  config = function() end,
   disable = true,
 }

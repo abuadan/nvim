@@ -12,6 +12,8 @@ function M.mappings(client, bufnr)
   -- Go to Definition
   vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>", bufopts)
   vim.keymap.set("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
+  -- vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", bufopts)
+
   vim.keymap.set("n", "gp", "<cmd>Lspsaga peek_definition<CR>", bufopts)
 
   vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, bufopts)
@@ -27,8 +29,8 @@ function M.mappings(client, bufnr)
   vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
 
   -- Hover
-  vim.keymap.set("n", "K", "<cmd>lspsaga hover_doc<cr>", bufopts)
-  -- vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+  -- vim.keymap.set("n", "K", "<CMD>Lspsaga hover_doc<CR>", bufopts)
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
 
   vim.keymap.set("n", "<c-f>", function()
     if not noice_lsp.scroll(4) then
