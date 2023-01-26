@@ -18,7 +18,7 @@ function M.setup()
   dap.adapters.firefox = firefox
   dap.configurations.typescriptreact = {
     {
-      type = "chrome",
+      type = "firefox",
       request = "attach",
       program = "${file}",
       cwd = vim.fn.getcwd(),

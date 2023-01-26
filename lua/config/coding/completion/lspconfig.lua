@@ -3,7 +3,7 @@ local mason_lspconfig = require "mason-lspconfig"
 local navic = require "nvim-navic"
 --[[ local null_ls = require "config.coding.completion.null-ls" ]]
 local lspconfig = require "lspconfig"
-
+local neodev = require "neodev"
 local M = {}
 
 local function document_highlight(client, bufnr)
@@ -83,6 +83,13 @@ local function setup_kind(icons)
   for i, kind in ipairs(kinds) do
     kinds[i] = icons.kind[kind] or kind
   end
+end
+
+local setup_neodev = function()
+  neodev.setup {
+    plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim", "neotest" },
+    library = { plugins = { "neotest", "nvim-dap-ui" }, types = true },
+  }
 end
 
 function M.setup()

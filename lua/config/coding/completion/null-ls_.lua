@@ -1,11 +1,11 @@
 local M = {}
 
-local Log = require "utils.log"
 local mason = require "mason"
 
 local mason_null_ls = require "mason-null-ls"
 
 local status_ok, null_ls = pcall(require, "null-ls")
+local Log = require "utils.log"
 if not status_ok then
   Log:error "Missing null-ls dependency"
   return
@@ -18,7 +18,7 @@ local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 
 -- hover sources
-local hover = null_ls.builtins.hover
+-- local hover = null_ls.builtins.hover
 
 local utils_ = require "null-ls.utils"
 local root_pattern = utils_.root_pattern

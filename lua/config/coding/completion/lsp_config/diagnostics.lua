@@ -11,10 +11,10 @@ local keymaps = function()
   -- vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 
   -- Show line diagnostics
-  vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
+  vim.keymap.set("n", "<leader>sld", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
 
   -- Show cursor diagnostics
-  vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts)
+  vim.keymap.set("n", "<leader>scd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts)
 
   -- Diagnostic jump can use `<c-o>` to jump back
   vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)

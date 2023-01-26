@@ -50,6 +50,8 @@ opt.updatetime = 250 --Decrease update time
 opt.encoding = "utf-8"
 opt.hidden = true
 opt.cmdheight = 2 -- 0
+vim.o.timeout = true
+vim.o.timeoutlen = 300
 
 opt.wildignorecase = true
 opt.wildignore:append "**/node_modules/*"

@@ -28,7 +28,7 @@ keymap("n", "N", "Nzzzv", opts)
 
 -- save in insert mode
 keymap("i", "<C-s>", "<cmd>:w<cr><esc>")
--- keymap("n", "<C-s>", "<cmd>:w<cr><esc>")
+-- replace current word
 keymap("n", "<C-c>", "<cmd>normal ciw<cr>a")
 
 -- better indenting

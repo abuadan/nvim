@@ -13,7 +13,6 @@ local node_dap = require "config.coding.dap_.debuggers.node"
 local go_dap = require "config.coding.dap_.debuggers.go"
 local typescript_dap = require "config.coding.dap_.debuggers.typescript"
 local lua_dap = require "config.coding.dap_.debuggers.lua"
--- local rust_dap = require "config.coding.dap_.debuggers.rust"
 
 local highlight_groups = function()
   vim.api.nvim_set_hl(0, "DapBreakpoint", { default = true, bg = "#31353f" })
@@ -38,6 +37,9 @@ local dap_extensions = function()
     dapui.close()
   end
   dap.listeners.before.event_exited["dapui_config"] = function()
+    dapui.close()
+  end
+  dap.listeners.before.disconnect["dapui_config"] = function()
     dapui.close()
   end
 end

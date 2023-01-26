@@ -1,4 +1,5 @@
 local M = {}
+local utils = require "utils.functions"
 local test = require "neotest-python"
 
 function M.adapter()
@@ -7,17 +8,7 @@ function M.adapter()
     runner = "pytest",
     args = { "--log-level", "DEBUG" },
     python = function()
-      local cwd = vim.fn.getcwd()
-
-      if os.getenv "VIRTUAL_ENV" then
-        return os.getenv "VIRTUAL_ENV" .. "/bin/python"
-      elseif vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
-        return cwd .. "/venv/bin/python"
-      elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-        return cwd .. "/.venv/bin/python"
-      else
-        return os.getenv "PYENV_ROOT" .. "versions/neovim/bin/python"
-      end
+      return utils.find_python()
     end,
   }
 end

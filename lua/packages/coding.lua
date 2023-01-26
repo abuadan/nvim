@@ -66,6 +66,7 @@ use {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     "jayp0521/mason-null-ls.nvim",
     "folke/neodev.nvim",
+
     {
       "RRethy/vim-illuminate",
       config = function()
@@ -215,6 +216,7 @@ use "ntpeters/vim-better-whitespace"
 -- Test
 use {
   "vim-test/vim-test",
+  requires = "tpope/vim-dispatch",
   event = { "BufReadPre" },
   config = function()
     require("config.coding.testing.vim_test").setup()
@@ -233,6 +235,12 @@ use {
     "nvim-neotest/neotest-go",
     "haydenmeade/neotest-jest",
     "rouge8/neotest-rust",
+    {
+      "stevearc/overseer.nvim",
+      config = function()
+        require("overseer").setup()
+      end,
+    },
     config = function()
       require("config.coding.testing.neotest").setup()
     end,
