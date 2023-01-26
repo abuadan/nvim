@@ -17,10 +17,11 @@ return require("packer").startup {
     use "nvim-lua/plenary.nvim"
     use "lewis6991/impatient.nvim"
 
-    require "packages.themes"
     require "packages.ide"
     require "packages.navigation"
     require "packages.coding"
+    require "packages.miscellaneous"
+    require "packages.themes"
     -- My plugins here
     -- use 'foo1/bar1.nvim'
     -- use 'foo2/bar2.nvim'

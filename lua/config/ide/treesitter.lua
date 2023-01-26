@@ -8,20 +8,26 @@ function M.setup()
   treesitter.setup {
     config.setup {
       ensure_installed = {
+        "comment",
         "python",
         "rust",
         "go",
         "cpp",
         "lua",
-        "vim",
         "javascript",
+        "typescript",
+        "tsx",
         "vim",
         "regex",
         "lua",
         "bash",
         "markdown",
+        "dockerfile",
+        "make",
         "norg",
         "markdown_inline",
+        "terraform",
+        "yaml",
       },
       -- ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
       highlight = {

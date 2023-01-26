@@ -3,7 +3,7 @@ local mason_lspconfig = require "mason-lspconfig"
 local navic = require "nvim-navic"
 --[[ local null_ls = require "config.coding.completion.null-ls" ]]
 local lspconfig = require "lspconfig"
-
+local neodev = require "neodev"
 local M = {}
 
 local function document_highlight(client, bufnr)
@@ -61,20 +61,21 @@ function M.on_attach(client, bufnr)
   mappings(client, bufnr)
   document_highlight(client, bufnr)
   semantic_tokens(client, bufnr)
-  vim.api.nvim_create_autocmd("CursorHold", {
-    buffer = bufnr,
-    callback = function()
-      local opts = {
-        focusable = false,
-        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-        border = "rounded",
-        source = "always",
-        prefix = " ",
-        scope = "cursor",
-      }
-      vim.diagnostic.open_float(nil, opts)
-    end,
-  })
+  -- vim.api.nvim_create_autocmd("CursorHold", {
+  --   buffer = bufnr,
+  --   callback = function()
+  --     local opts = {
+  --       focusable = false,
+  --       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+  --       border = "rounded",
+  --       source = "always",
+  --       prefix = " ",
+  --       scope = "cursor",
+  --     }
+  --     vim.diagnostic.open_float(nil, opts)
+  -- end
+  -- }
+  -- )
 end
 
 local function setup_kind(icons)
@@ -82,6 +83,13 @@ local function setup_kind(icons)
   for i, kind in ipairs(kinds) do
     kinds[i] = icons.kind[kind] or kind
   end
+end
+
+local setup_neodev = function()
+  neodev.setup {
+    plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim", "neotest" },
+    library = { plugins = { "neotest", "nvim-dap-ui" }, types = true },
+  }
 end
 
 function M.setup()
@@ -93,11 +101,27 @@ function M.setup()
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
+  capabilities.textDocument.completion.completionItem = {
+    documentationFormat = { "markdown", "plaintext" },
+    preselectSupport = true,
+    insertReplaceSupport = true,
+    labelDetailsSupport = true,
+    deprecatedSupport = true,
+    commitCharactersSupport = true,
+    tagSupport = { valueSet = { 1 } },
+    resolveSupport = {
+      properties = {
+        "documentation",
+        "detail",
+        "additionalTextEdits",
+      },
+    },
+  }
   capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
   local servers = {
     "sumneko_lua",
-    "rust_analyzer",
+    -- "rust_analyzer",
     "pyright",
     "tsserver",
     "yamlls",
@@ -109,7 +133,6 @@ function M.setup()
     "gopls",
     "jsonls",
     "sqls",
-    "taplo",
     "clangd",
     "bashls",
   }

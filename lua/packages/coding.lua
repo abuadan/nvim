@@ -58,7 +58,6 @@ use {
   "neovim/nvim-lspconfig",
   config = function()
     require("config.coding.completion.lspconfig").setup()
-    -- require("config.coding.debugging.dap").setup()
   end,
   after = "nvim-treesitter",
   requires = {
@@ -67,22 +66,17 @@ use {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     "jayp0521/mason-null-ls.nvim",
     "folke/neodev.nvim",
+
     {
       "RRethy/vim-illuminate",
       config = function()
-        vim.g.Illuminate_delay = 300
-        vim.g.Illuminate_highlightUnderCursor = 0
-        -- vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]
-        -- vim.api.nvim_command [[ hi def link LspReferenceWrite CursorLine ]]
-        -- vim.api.nvim_command [[ hi def link LspReferenceRead CursorLine ]]
-        -- vim.api.nvim_set_keymap('n', '<a-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', {noremap=true})
-        -- vim.api.nvim_set_keymap('n', '<a-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', {noremap=true})
+        require("config.coding.illuminate").config()
       end,
     },
     {
       "jose-elias-alvarez/null-ls.nvim", -- after = "nvim-lspconfig",
       config = function()
-        require("config.coding.completion.null-ls").setup()
+        require("config.coding.completion.null-ls_").setup()
       end,
     },
     {
@@ -110,17 +104,46 @@ use {
 }
 use {
   "glepnir/lspsaga.nvim",
-  cmd = { "Lspsaga" },
+  branch = "main",
   config = function()
-    require "config.coding.completion.lspsaga"
+    require("config.coding.completion.lspsaga").setup()
   end,
   opt = false,
   disable = false,
 }
 
 use {
+  "simrat39/rust-tools.nvim",
+  requires = "neovim/nvim-lspconfig",
+  after = "nvim-lspconfig",
+  config = function()
+    require("config.coding.completion.rust_tools").setup()
+  end,
+}
+
+use {
   "weilbith/nvim-code-action-menu",
   cmd = "CodeActionMenu",
+}
+
+-- debugger
+use {
+  "mfussenegger/nvim-dap",
+  opt = true,
+  event = "BufReadPre",
+  module = { "dap" },
+  wants = { "nvim-dap-virtual-text", "nvim-dap-ui", "nvim-dap-python", "which-key.nvim" },
+  requires = {
+    "theHamsta/nvim-dap-virtual-text",
+    "rcarriga/nvim-dap-ui",
+    "mfussenegger/nvim-dap-python",
+    "nvim-telescope/telescope-dap.nvim",
+    { "leoluz/nvim-dap-go", module = "dap-go" },
+    { "jbyuki/one-small-step-for-vimkind", module = "osv" },
+  },
+  config = function()
+    require("config.coding.dap_").setup()
+  end,
 }
 -- Refactor
 use {
@@ -192,48 +215,37 @@ use "ntpeters/vim-better-whitespace"
 
 -- Test
 use {
+  "vim-test/vim-test",
+  requires = "tpope/vim-dispatch",
+  event = { "BufReadPre" },
+  config = function()
+    require("config.coding.testing.vim_test").setup()
+  end,
+}
+
+use {
   "nvim-neotest/neotest",
   requires = {
-    {
-      "vim-test/vim-test",
-      event = { "BufReadPre" },
-      config = function()
-        require("config.coding.testing.vim_test").setup()
-      end,
-    },
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
     "antoinemadec/FixCursorHold.nvim",
+    "nvim-neotest/neotest-vim-test",
+    "nvim-neotest/neotest-python",
+    "nvim-neotest/neotest-plenary",
+    "nvim-neotest/neotest-go",
+    "haydenmeade/neotest-jest",
+    "rouge8/neotest-rust",
     {
-      "nvim-neotest/neotest-vim-test",
-      module = { "neotest-vim-test" },
+      "stevearc/overseer.nvim",
+      config = function()
+        require("overseer").setup()
+      end,
     },
-    {
-      "nvim-neotest/neotest-python",
-      module = { "neotest-python" },
-    },
-    {
-      "nvim-neotest/neotest-plenary",
-      module = { "neotest-plenary" },
-    },
-    {
-      "nvim-neotest/neotest-go",
-      module = { "neotest-go" },
-    },
-    {
-      "haydenmeade/neotest-jest",
-      module = { "neotest-jest" },
-    },
-    {
-      "rouge8/neotest-rust",
-      module = { "neotest-rust" },
-    },
+    config = function()
+      require("config.coding.testing.neotest").setup()
+    end,
+    disable = false,
   },
-  module = { "neotest", "neotest.async" },
-  config = function()
-    require("config.coding.testing.neotest").setup()
-  end,
-  disable = false,
 }
 
 use {

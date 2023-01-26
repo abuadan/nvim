@@ -1,5 +1,5 @@
 ---@diagnostic disable: assign-type-mismatch
-local api = vim.api
+-- local api = vim.api
 local g = vim.g
 local opt = vim.opt
 -- local cmd = vim.cmd
@@ -45,14 +45,17 @@ opt.wildmode = "longest"
 opt.wildmode:append "full"
 opt.wildmenu = true
 --[[ opt.shortmess = 'c' ]]
--- TODO better handle how to point at the neovim python env
-g.python3_host_prog = "~/.pyenv/versions/3.10.4/envs/neovim/bin/python3"
 
 opt.updatetime = 250 --Decrease update time
 opt.encoding = "utf-8"
 opt.hidden = true
 opt.cmdheight = 2 -- 0
+vim.o.timeout = true
+vim.o.timeoutlen = 300
 
 opt.wildignorecase = true
 opt.wildignore:append "**/node_modules/*"
 opt.wildignore:append "**/.git/*"
+
+-- langugae paths
+g.python3_host_prog = os.getenv "PYENV_ROOT" .. "/versions/neovim/bin/python"

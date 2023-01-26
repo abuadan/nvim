@@ -2,12 +2,24 @@ local M = {}
 local lualine = require "lualine"
 local navic = require "nvim-navic"
 
+local function diff_source()
+  local gitsigns = vim.b.gitsigns_status_dict
+  if gitsigns then
+    return {
+      added = gitsigns.added,
+      modified = gitsigns.changed,
+      removed = gitsigns.removed,
+    }
+  end
+end
+
 local function empty_winbar_var()
   local exclude = {
     ["terminal"] = true,
     ["toggleterm"] = true,
     ["prompt"] = true,
     ["NvimTree"] = true,
+    ["neo-tree"] = true,
     ["help"] = true,
   } -- Ignore float windows and exclude filetype
   if vim.api.nvim_win_get_config(0).zindex or exclude[vim.bo.filetype] then
@@ -33,6 +45,7 @@ function M.setup()
           "packer",
           "neogitstatus",
           "NvimTree",
+          "neo-tree",
           "Trouble",
           "alpha",
           "lir",
@@ -52,7 +65,7 @@ function M.setup()
     },
     sections = {
       lualine_a = { "mode" },
-      lualine_b = { "branch", "diff", "diagnostics" },
+      lualine_b = { "branch", { "diff", source = diff_source }, "diagnostics" },
       lualine_c = { "filename" },
       lualine_x = { "encoding", "fileformat", "filetype" },
       lualine_y = { "progress" },

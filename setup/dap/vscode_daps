@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# This script is responsible for installing all
+# vscode related debuggers
+# currently there are
+# 	vscode node
+# 	vscode chrome
+# 	vscode go
+
+set -e
+# check that the debugger folder is present
+# in XDG_DATA_HOME
+
+DEBUGGER_REPO="$XDG_DATA_HOME/debuggers"
+
+install_() {
+	cd "$1" || exit
+	npm install
+	if [[ "$DEBUGGER_REPO/vscode-go" == "$1" ]]; then
+		echo "this might be a go repo, running compile"
+		npm run compile
+	else
+		npm run build
+	fi
+}
+if [ ! -e "$XDG_DATA_HOME/debuggers" ]; then
+	echo "debugger folder not present"
+	echo "creating debugger folder"
+	mkdir -p "$DEBUGGER_REPO"
+	echo "created directory $DEBUGGER_REPO"
+fi
+
+if [ ! -e "$DEBUGGER_REPO/vscode-node-debug2/" ]; then
+	echo "vscode node debug repo not present installing repo"
+	git clone https://github.com/microsoft/vscode-node-debug2.git "$DEBUGGER_REPO/vscode-node-debug2"
+	install_ "$DEBUGGER_REPO/vscode-node-debug2"
+else
+install_ "$DEBUGGER_REPO/vscode-node-debug2"
+fi
+
+if [ ! -e "$DEBUGGER_REPO/vscode-chrome-debug" ]; then
+	echo "vscode chrome debugger repo not present, cloning."
+	git clone https://github.com/Microsoft/vscode-chrome-debug "$DEBUGGER_REPO/vscode-chrome-debug"
+	install_ "$DEBUGGER_REPO/vscode-chrome-debug"
+else
+
+	install_ "$DEBUGGER_REPO/vscode-chrome-debug"
+
+fi
+
+if [ ! -e "$DEBUGGER_REPO/vscode-go" ]; then
+	echo "Go vscode debugger not present, cloning repo"
+	git clone https://github.com/golang/vscode-go "$DEBUGGER_REPO/vscode-go"
+	install_ "$DEBUGGER_REPO/vscode-go"
+else
+	install_ "$DEBUGGER_REPO/vscode-chrome-debug"
+
+fi
+
+if [ ! -e "$DEBUGGER_REPO/vscode-firefox-debug/" ]; then
+	echo "firefox debugger repo not present, cloning"
+	git clone https://github.com/firefox-devtools/vscode-firefox-debug.git "$DEBUGGER_REPO/vscode-firefox-debug"
+	install_ "$DEBUGGER_REPO/vscode-firefox-debug/"
+else
+	install_ "$DEBUGGER_REPO/vscode-firefox-debug/"
+
+fi
+# vim: ft=sh:
