@@ -1,16 +1,18 @@
 # files
-./plugin/packer_compiled.lua
+/plugin/packer_compiled.lua
+/plugin/*.py
 
 # Tools
 /venv/
+/.venv/
 compile_commands.json
 /.luarc.json
 
 # IDEs
-/.vs/
-/.vscode/
-/.idea/
-
+*/.vs/
+*/.vscode/
+*/.idea/
+*/__pycache__/*
 # Build/deps dir
 /build/
 /.deps/
@@ -19,7 +21,7 @@ compile_commands.json
 /.cache/clangd/
 /.ccls-cache/
 /.clang-tidy
-
+*/.pytest_cache/*
 *.DS_Store
 *.mo
 .*.sw?
