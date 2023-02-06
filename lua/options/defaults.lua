@@ -3,8 +3,6 @@
 local g = vim.g
 local opt = vim.opt
 -- local cmd = vim.cmd
---[[ opt.winbar = "%{%v:lua.require'config.ide.breadcrumbs'.get_winbar()%}" ]]
--- vim.keymap.set("", "<Space>", "<Nop>", { noremap = true, silent = true })
 
 -- disable netrw at the very start of your init.lua (strongly advised)
 g.loaded_netrw = 1
@@ -46,7 +44,7 @@ opt.wildmode:append "full"
 opt.wildmenu = true
 --[[ opt.shortmess = 'c' ]]
 
-opt.updatetime = 250 --Decrease update time
+opt.updatetime = 300 --Decrease update time
 opt.encoding = "utf-8"
 opt.hidden = true
 opt.cmdheight = 2 -- 0

@@ -17,26 +17,15 @@ function M.setup()
         ignore_file_types = { "python", "vim", "lua" },
       },
     },
-    -- consumers = {
-    --   overseer = overseer,
-    -- },
-    -- overseer = {
-    --   enabled = true,
-    --   -- When this is true (the default), it will replace all neotest.run.* commands
-    --   force_default = false,
-    -- },
+    consumers = {
+      overseer = overseer,
+    },
+    overseer = {
+      enabled = true,
+      -- When this is true (the default), it will replace all neotest.run.* commands
+      force_default = false,
+    },
   }
-  local not_okay, _ = pcall(require, "neotest.run")
-  if not_okay then
-    print "neotest run not avaliable "
-  end
-end
-
-function M.print_this()
-  for i, d in ipairs(neotest) do
-    print(d.run)
-    print(i.run)
-  end
 end
 
 return M
