@@ -29,8 +29,8 @@ function M.mappings(client, bufnr)
   vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
 
   -- Hover
-  -- vim.keymap.set("n", "K", "<CMD>Lspsaga hover_doc<CR>", bufopts)
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+  vim.keymap.set("n", "K", "<CMD>Lspsaga hover_doc<CR>", bufopts)
+  -- vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
 
   vim.keymap.set("n", "<c-f>", function()
     if not noice_lsp.scroll(4) then
@@ -61,7 +61,7 @@ function M.mappings(client, bufnr)
 
   -- Code Action
   if client.supports_method "textDocument/codeAction" then
-    vim.keymap.set("n", "<space>ca", "<CMD>CodeActionMenu<CR>", bufopts)
+    vim.keymap.set("n", "<Leader>ca", "<CMD>CodeActionMenu<CR>", bufopts)
 
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
       callback = function()

@@ -241,11 +241,11 @@ use {
         require("overseer").setup()
       end,
     },
-    config = function()
-      require("config.coding.testing.neotest").setup()
-    end,
-    disable = false,
   },
+  config = function()
+    require("config.coding.testing.neotest").setup()
+  end,
+  disable = false,
 }
 
 use {

@@ -2,19 +2,25 @@ local M = {}
 local neotest = require "neotest"
 local overseer = require "neotest.consumers.overseer"
 
-local python = require "config.coding.testing.neotest_adapters.python"
-local javascript = require "config.coding.testing.neotest_adapters.javascript"
-local go = require "config.coding.testing.neotest_adapters.go"
+local utils = require "utils.functions"
 
 function M.setup()
   neotest.setup {
     adapters = {
-      python.adapter(),
-      javascript.setup(),
-      go.setup(),
+      require "neotest-python" {
+        dap = { justMyCode = false },
+        runner = "pytest",
+        args = { "--log-level", "DEBUG", "-vvv" },
+        python = function()
+          return utils.find_python()
+        end,
+      },
+      require "neotest-jest",
+      require "neotest-go",
       require "neotest-plenary",
+      require "neotest-rust",
       require "neotest-vim-test" {
-        ignore_file_types = { "python", "vim", "lua" },
+        ignore_file_types = { "python", "vim", "lua", "rust" },
       },
     },
     consumers = {
@@ -25,6 +31,7 @@ function M.setup()
       -- When this is true (the default), it will replace all neotest.run.* commands
       force_default = false,
     },
+    log_level = vim.log.levels.DEBUG,
   }
 end
 
