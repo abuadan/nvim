@@ -102,7 +102,7 @@ function M.setup()
           },
         },
       },
-      context_commentstring = { enable = true, enable_autocmd = false },
+      -- context_commentstring = { enable = true, enable_autocmd = false },
       textsubjects = {
         enable = true,
         keymaps = {

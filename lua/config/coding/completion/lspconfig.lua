@@ -120,7 +120,7 @@ function M.setup()
   capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
   local servers = {
-    "sumneko_lua",
+    "lua_ls",
     -- "rust_analyzer",
     "pyright",
     "tsserver",
