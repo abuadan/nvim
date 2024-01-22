@@ -80,3 +80,7 @@ tags
 /vim-*.patch
 
 CMakeUserPresets.json
+
+lazy*.json
+lazy-lock.json
+lazyvim.json
