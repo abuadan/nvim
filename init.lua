@@ -1,8 +1,2 @@
-local cmd = vim.cmd
-
-require "options"
-require "plugins"
--- require "config.themes"
-
--- cmd "colorscheme vscode"
-vim.g.colorscheme = "vscode"
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
