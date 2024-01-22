@@ -62,7 +62,7 @@ use {
   after = "nvim-treesitter",
   requires = {
     "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
+    {"williamboman/mason-lspconfig.nvim", requires="williamboman/mason.nvim"},
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     "jayp0521/mason-null-ls.nvim",
     "folke/neodev.nvim",

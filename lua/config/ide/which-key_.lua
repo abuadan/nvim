@@ -215,7 +215,7 @@ local function normal_keymap()
     },
   }
   whichkey.register(keymap, opts)
-  require("legendary.integrations.which-key").bind_whichkey(keymap, opts, false)
+  -- require("legendary.integrations.which-key").bind_whichkey(keymap, opts, false)
   -- false if which-key.nvim handles binding them,
   -- set to true if you want legendary.nvim to handle binding
   -- the mappings; if not passed, true by default
@@ -248,7 +248,7 @@ local function visual_keymap()
   }
 
   whichkey.register(keymap, v_opts)
-  require("legendary.integrations.which-key").bind_whichkey(keymap, v_opts, false)
+  -- require("legendary.integrations.which-key").bind_whichkey(keymap, v_opts, false)
 end
 
 function M.setup()
