@@ -36,9 +36,9 @@ return {
           i = cmp.mapping.abort(),
           c = cmp.mapping.close(),
         }),
-        ["<CR>"] = cmp.mapping.confirm({
-          select = true,
-        }),
+        -- ["<CR>"] = cmp.mapping.confirm({
+        --   select = true,
+        -- }),
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
@@ -112,7 +112,14 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       })
-      -- opts.completion = vim.tbl_extend("force", opts.completion, {completeopt = "menu,menuone,noselect",})
+      opts.sources = vim.tbl_extend("force", opts.sources, {
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "text" },
+        { name = "path" },
+        { name = "buffer" },
+      })
+      opts.completion = vim.tbl_extend("force", opts.completion, { completeopt = "menu,menuone,noinsert,noselect" })
       -- opts.window = vim.tbl_extend("force", opts.window, {
       --   completion = cmp.config.window.bordered(),
       --   documentation = cmp.config.window.bordered(),
