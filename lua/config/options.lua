@@ -6,3 +6,8 @@ local opt = vim.opt
 opt.number = true
 opt.relativenumber = true -- Relative line numbers
 opt.cursorline = true
+
+opt.undofile = true
+
+-- Don't have `o` add a comment
+opt.formatoptions:remove("o")

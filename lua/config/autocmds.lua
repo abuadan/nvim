@@ -12,3 +12,11 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.b.autoformat = false
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("python_options", { clear = true }),
+  pattern = { "python" },
+  callback = function()
+    vim.opt_local.colorcolumn = "80"
+  end,
+})
