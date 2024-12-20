@@ -5,3 +5,6 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Launch Oil" })
 vim.keymap.set("n", "<Tab>", function()
   vim.cmd((vim.bo.filetype == "oil") and "bd" or "Oil")
 end)
+
+-- stop hash from being unusable in insert mode
+vim.api.nvim_set_keymap("i", "<Al-3>", "#", { noremap = true, silent = true })

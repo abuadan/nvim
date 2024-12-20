@@ -7,9 +7,9 @@ vim.opt_local.tabstop = 2
 vim.opt_local.textwidth = 120
 
 vim.opt_local.spell = true
-vim.opt_local.spelllang = { "en_us" }
+vim.opt_local.spelllang = { "en_gb" }
 
-require("cmp").setup.buffer({
+require("blink-cmp").setup({
   sources = {
     { name = "luasnip" },
     { name = "path" },
