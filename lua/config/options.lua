@@ -11,3 +11,4 @@ opt.undofile = true
 
 -- Don't have `o` add a comment
 opt.formatoptions:remove("o")
+opt.termguicolors = true
