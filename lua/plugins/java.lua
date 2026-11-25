@@ -1,208 +1,168 @@
--- local home = os.getenv("HOME")
--- local workspace_path = home .. "/.local/share/nvim/jdtls-workspace/"
--- local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
--- local workspace_dir = workspace_path .. project_name
--- local os_config = "linux"
--- if vim.fn.has("mac") == 1 then
---   os_config = "mac"
--- end
--- local jdtls_path = home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. os_config
+-- Java (jdtls) tuning for large Gradle monorepos such as Starling's `platform`
+-- (~2200 Gradle projects). Builds on LazyVim's `lang.java` extra.
 --
--- -- Define the arguments to increase RAM and potentially improve performance
--- local extended_jvm_args = {
---   "-XX:+UseParallelGC", -- Optional: Use parallel garbage collector for performance
---   -- Add any other standard jdtls arguments here
---   -- "-Xms512m", -- Initial heap size (optional, but good practice)
---   "-Xmx4G", -- 💀 MAXIMUM heap size (e.g., 4 Gigabytes)
---   "server",
---   "Xms8192m",
---   "Xmx12288m",
---   "XX:ReservedCodeCacheSize=512m",
---   "XX:+UseG1GC",
---   "XX:SoftRefLRUPolicyMSPerMB=50",
---   "ea",
---   "Dsun.io.useCanonCaches=false",
---   "Djava.net.preferIPv4Stack=true",
---   "XX:-OmitStackTraceInFastThrow",
--- }
---
--- -- Combine existing cmd arguments with the extended JVM arguments
--- local cmd = {
---   "java",
---   "-Declipse.application=org.eclipse.jdt.ls.core.id1",
---   "-Dosgi.bundles.defaultStartLevel=4",
---   "-Declipse.product=org.eclipse.jdt.ls.core.product",
---   "-Dlog.protocol=true",
---   "-Dlog.level=ERROR",
---   -- "-Xms1g", -- Example initial size, overridden by the above Xms512m if placed later
---   extended_jvm_args,
---   "--add-modules=ALL-SYSTEM",
---   "--add-opens",
---   "java.base/java.util=ALL-UNNAMED",
---   "--add-opens",
---   "java.base/java.util.concurrent=ALL-UNNAMED",
---   "-jar",
---   vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
---   "-configuration",
---   jdtls_path .. "/config_" .. vim.loop.os_uname().sysname:lower(),
---   "-data",
---   workspace_dir,
--- }
---
--- return {
---   "mfussenegger/nvim-jdtls",
---   ft = "java",
---   opts = function(_, opts)
---     opts.cmd = opts.cmd or { vim.fn.exepath("jdtls") }
---     table.insert(opts.cmd, 2, cmd)
---     -- jdtl = {
---     -- cmd = cmd,
---     -- {
---     --     "java",
---     --     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
---     --     "-Dosgi.bundles.defaultStartLevel=4",
---     --     "-Declipse.product=org.eclipse.jdt.ls.core.product",
---     --     "-Dlog.protocol=true",
---     --     "-Dlog.level=ALL",
---     --     "-Xms1g",
---     --     "--add-modules=ALL-SYSTEM",
---     --     "--add-opens",
---     --     "java.base/java.util=ALL-UNNAMED",
---     --     "--add-opens",
---     --     "java.base/java.lang=ALL-UNNAMED",
---     --     "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
---     --     "-jar",
---     --     vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
---     --     "-configuration",
---     --     home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. os_config,
---     --     "-data",
---     --     workspace_dir,
---     --   },
---     -- }
---   end,
--- }
---
--- local home = os.getenv("HOME")
--- local workspace_path = home .. "/.local/share/nvim/jdtls-workspace/"
--- local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
--- local workspace_dir = workspace_path .. project_name
--- local os_config = "linux"
--- if vim.fn.has("mac") == 1 then
---   os_config = "mac"
--- end
--- local jdtls_config_dir = home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. os_config
---
--- -- Define the arguments to increase RAM and potentially improve performance
--- -- Ensure these are simple strings without redundant entries
--- local jvm_memory_args = {
---   "-Xmx4G", -- MAXIMUM heap size (e.g., 4 Gigabytes)
---   "-Xms1G", -- Initial heap size
---   "-XX:+UseG1GC", -- Use G1 garbage collector
---   "-XX:ReservedCodeCacheSize=512m",
---   "-XX:SoftRefLRUPolicyMSPerMB=50",
---   "-ea",
---   "-Dsun.io.useCanonCaches=false",
---   "-Djava.net.preferIPv4Stack=true",
---   "-XX:-OmitStackTraceInFastThrow",
--- }
---
--- -- The base arguments for launching the server
--- local base_args = {
---   "java",
---   "-Declipse.application=org.eclipse.jdt.ls.core.id1",
---   "-Dosgi.bundles.defaultStartLevel=4",
---   "-Declipse.product=org.eclipse.jdt.ls.core.product",
---   "-Dlog.protocol=true",
---   "-Dlog.level=ERROR",
---   "--add-modules=ALL-SYSTEM",
---   "--add-opens",
---   "java.base/java.util=ALL-UNNAMED",
---   "--add-opens",
---   "java.base/java.util.concurrent=ALL-UNNAMED",
---   "-jar",
---   -- Resolve the exact path to the launcher JAR
---   vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
---   "-configuration",
---   jdtls_config_dir,
---   "-data",
---   workspace_dir,
--- }
---
--- -- Combine the two lists into the final 'cmd' table
--- -- We use vim.list_extend to properly merge the tables.
--- local cmd = {}
--- vim.list_extend(cmd, jvm_memory_args) -- Add memory args first
--- vim.list_extend(cmd, base_args) -- Append the rest of the arguments
---
--- -- Optional: If you use Lombok via Mason, uncomment and adjust this line.
--- -- table.insert(cmd, 2, "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar")
---
--- -- This table is ready to be passed to require('jdtls').start_or_attach(config)
--- -- If using LazyVim's structure, you would assign 'cmd' to opts.cmd in your plugin definition.
---
--- -- Example of how to use this within a complete manual Neovim setup:
--- -- require('jdtls').start_or_attach({
--- --     cmd = cmd,
--- --     root_dir = require('jdtls.internal').root_dir,
--- --     -- settings = { ... other jdtls settings ... }
--- -- })
---
--- -- If using this file inside LazyVim via lua/plugins/java-custom.lua:
--- return {
---   "mfussenegger/nvim-jdtls",
---   ft = "java",
---   opts = function(_, opts)
---     opts.cmd = cmd -- Assign the complete, correct command list
---     return opts
---   end,
--- }
+-- The single biggest win is NOT importing the whole build: scope it with
+-- `platform-scope <service>` (see ~/.local/bin/platform-scope, not tracked in dotfiles, and platform/docs/PARTIAL_INTELLIJ_IMPORTS.md),
+-- which writes .projects/include.txt. jdtls drives Gradle, so it honours that scope.
+
+-- First existing JDK home from a list of candidates.
+local function first_dir(candidates)
+  for _, dir in ipairs(candidates) do
+    if vim.uv.fs_stat(dir) then
+      return dir
+    end
+  end
+end
+
+local brew = "/opt/homebrew/opt"
+local jdk21 = first_dir({
+  brew .. "/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+  "/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home",
+})
+local jdk25 = first_dir({ brew .. "/openjdk@25/libexec/openjdk.jdk/Contents/Home" })
+
+-- Registers a JDK with jdtls only if it is installed.
+local function runtimes()
+  local list = {}
+  if jdk21 then
+    table.insert(list, { name = "JavaSE-21", path = jdk21, default = true })
+  end
+  if jdk25 then
+    table.insert(list, { name = "JavaSE-25", path = jdk25 })
+  end
+  return list
+end
+
 return {
   "mfussenegger/nvim-jdtls",
   ft = "java",
   opts = function(_, opts)
-    -- 'opts.cmd' is provided by LazyVim's Java extra.
-    -- We are extending this command list, not replacing it entirely.
-
-    local custom_jvm_args = {
-      "-Xmx4G", -- Set maximum RAM to 4GB
-      "-Xms1G", -- Set initial RAM to 1GB
-      "-XX:+UseG1GC", -- Use G1 garbage collector
+    -- 'opts.cmd' is LazyVim's jdtls wrapper invocation ({ "<mason>/bin/jdtls", ... }).
+    -- That wrapper only accepts JVM flags via a repeatable --jvm-arg=<flag> option; a bare
+    -- "-Xmx8G" lands after "-jar ... -data ..." as an ignored program argument.
+    -- JDTLS_FULL=1 nvim  -> importing the whole platform build (see `platform-scope --all`)
+    -- JDTLS_XMX=10G nvim -> explicit override
+    local xmx = vim.env.JDTLS_XMX or (vim.env.JDTLS_FULL and "12G" or "8G")
+    local jvm_args = {
+      "-Xmx" .. xmx, -- default jdtls heap is far too small for a large project
+      "-Xms1G",
+      "-XX:+UseG1GC",
       "-XX:ReservedCodeCacheSize=512m",
-      -- Add other specific args here if needed
-      --   "-XX:+UseParallelGC", -- Optional: Use parallel garbage collector for performance
-      -- Add any other standard jdtls arguments here
-      -- "-Xms512m", -- Initial heap size (optional, but good practice)
-      "-Xmx4G", -- 💀 MAXIMUM heap size (e.g., 4 Gigabytes)
-      "server",
-      "Xms8192m",
-      "Xmx12288m",
-      "XX:ReservedCodeCacheSize=512m",
-      "XX:+UseG1GC",
-      "XX:SoftRefLRUPolicyMSPerMB=50",
-      "ea",
-      "Dsun.io.useCanonCaches=false",
-      "Djava.net.preferIPv4Stack=true",
-      "XX:-OmitStackTraceInFastThrow",
     }
+    for _, arg in ipairs(jvm_args) do
+      table.insert(opts.cmd, string.format("--jvm-arg=%s", arg))
+    end
 
-    -- Insert the JVM arguments into the 'cmd' list.
-    -- These MUST be positioned before the '-jar' argument in the list.
-    -- The default LazyVim cmd starts with {"java", ...}
+    -- Run jdtls itself on JDK 21 regardless of what `java` on PATH is (currently 27).
+    if jdk21 then
+      table.insert(opts.cmd, "--java-executable=" .. jdk21 .. "/bin/java")
+    end
 
-    -- We can prepend our args right after the initial "java" entry
-    -- for i = 1, #custom_jvm_args do
-    -- table.insert(opts.full_cmd, 2, custom_jvm_args[i])
-    -- end
-    vim.list_extend(opts.cmd, custom_jvm_args)
-    -- Optional: If you need Lombok support with Mason:
-    -- local home = os.getenv("HOME")
-    -- table.insert(opts.cmd, 2, "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar")
+    -- Per-checkout workspace: `platform/platform` would otherwise always be named
+    -- "platform", so every worktree would share (and corrupt) one index.
+    -- Keep in sync with the cache path in ~/.local/bin/platform-scope.
+    opts.project_name = function(root_dir)
+      if not root_dir then
+        return nil
+      end
+      local parent = vim.fs.basename(vim.fs.dirname(root_dir))
+      return parent .. "_" .. vim.fs.basename(root_dir)
+    end
 
-    -- Ensure 'root_dir' is set if it somehow gets lost (LazyVim usually handles this):
-    -- if not opts.root_dir then
-    --   opts.root_dir = require("jdtls.internal").root_dir
-    -- end
+    -- Always root at the Gradle build (settings.gradle[.kts]); never fall back to .git, which
+    -- for platform is one directory above the Gradle root.
+    opts.root_dir = function(path)
+      return vim.fs.root(path, { "settings.gradle.kts", "settings.gradle", "gradlew" })
+        or vim.fs.root(path, { "pom.xml", "build.gradle.kts", "build.gradle", ".git" })
+    end
 
-    return opts -- Return the modified options table to LazyVim
+    -- Don't scan for main classes on huge projects (nvim-dap "performance killer").
+    opts.dap_main = false
+
+    -- Optional machine-local overrides (lua/local/jdtls.lua, git-excluded).
+    local ok, localcfg = pcall(require, "local.jdtls")
+    localcfg = ok and localcfg or {}
+
+    opts.settings = vim.tbl_deep_extend("force", opts.settings or {}, {
+      java = {
+        imports = {
+          gradle = { wrapper = { checksums = localcfg.wrapper_checksums or {} } },
+        },
+        configuration = {
+          runtimes = runtimes(),
+        },
+        import = {
+          gradle = {
+            enabled = true,
+            wrapper = { enabled = true },
+            -- platform sets org.gradle.isolated-projects=true, which rejects the init scripts
+            -- jdtls injects ("cannot access Project.afterEvaluate on subprojects via allprojects").
+            -- Turn it off for the editor import only; real builds are unaffected.
+            arguments = "-Dorg.gradle.isolated-projects=false",
+            -- JVM that runs Gradle for the import; the build itself fetches its own toolchains.
+            java = { home = jdk21 },
+          },
+          -- Don't let jdtls write .project/.classpath/.settings into every module.
+          generatesMetadataFilesAtProjectRoot = false,
+          exclusions = {
+            "**/node_modules/**",
+            "**/.metadata/**",
+            "**/archetype-resources/**",
+            "**/META-INF/maven/**",
+            "**/build/**",
+            "**/.gradle/**",
+          },
+        },
+        -- Only compile on demand (:lua require("jdtls").compile("incremental")); open buffers
+        -- still get live diagnostics. A full autobuild on a monorepo pegs the CPU.
+        autobuild = { enabled = false },
+        maxConcurrentBuilds = 1,
+        eclipse = { downloadSources = false },
+        maven = { downloadSources = false },
+        referencesCodeLens = { enabled = false },
+        implementationsCodeLens = { enabled = false },
+        signatureHelp = { enabled = true },
+        completion = { maxResults = 50 },
+        -- Eclipse's formatter doesn't match the project's style (spotless/ktlint).
+        format = { enabled = false },
+        project = {
+          resourceFilters = { "node_modules", "\\.git", "\\.gradle" },
+        },
+      },
+    })
+
+    -- jdtls reads its *initial* preferences (including the Gradle wrapper trust list) from
+    -- initializationOptions.settings; settings sent only via didChangeConfiguration arrive after
+    -- the first import has already been refused. Send them both ways.
+    opts.jdtls = function(config)
+      config.init_options = config.init_options or {}
+      config.init_options.settings = config.settings
+      return config
+    end
+
+    return opts
+  end,
+  init = function()
+    -- Warn once per checkout when jdtls is about to import every platform project.
+    local warned = {}
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "java",
+      group = vim.api.nvim_create_augroup("platform-full-import-warning", { clear = true }),
+      callback = function(args)
+        local root = vim.fs.root(args.buf, { "settings.gradle.kts", "settings.gradle" })
+        if not root or warned[root] or vim.env.JDTLS_FULL or not vim.uv.fs_stat(root .. "/settings-dependencies.txt") then
+          return
+        end
+        warned[root] = true
+        if not vim.uv.fs_stat(root .. "/.projects/generated/include_with_dependencies.txt") then
+          vim.notify(
+            "jdtls will import the FULL platform build (thousands of projects).\n"
+              .. "Scope it first: platform-scope <service> -c, then ./gradlew :projectsIncludeWithDependencies",
+            vim.log.levels.WARN,
+            { title = "jdtls" }
+          )
+        end
+      end,
+    })
   end,
 }

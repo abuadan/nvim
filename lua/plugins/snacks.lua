@@ -15,7 +15,22 @@ return {
       enabled = true,
       timeout = 3000,
     },
-    picker = { enabled = true, hidden = false, ignored = false },
+    picker = {
+      sources = {
+        explorer = {
+          hidden = true,
+          ignored = false,
+        },
+        files = {
+          hidden = true, -- show dotfiles in fuzzy finder
+          ignored = false, -- optional: show gitignored files
+        },
+        grep = {
+          hidden = true, -- Also search in hidden files
+          ignored = false,
+        },
+      },
+    },
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = true },
